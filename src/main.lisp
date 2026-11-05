@@ -14,7 +14,7 @@ This happens only if LENGTH of PROGRAM-ARGUMENTS is 1."
     (uiop:quit 2))
   (car program-arguments))
 
-(defun ensure-directory-exists (directory)
+(defun quit-if-directory-does-not-exist (directory)
   "Ensures that DIRECTORY exists.
 Elsewhere, UIOP:QUIT's."
   (unless (uiop:directory-exists-p directory)
@@ -33,7 +33,7 @@ Elsewhere, UIOP:QUIT's."
   (message)
   (let ((music-storage (music-storage-location (uiop:command-line-arguments))))
     (message "Expecting music storage at \"~A\"" music-storage)
-    (ensure-directory-exists music-storage)
+    (quit-if-directory-does-not-exist music-storage)
     (let* ((all (walk-files music-storage))
            (ignores (find-ignore-files all))
            (music (remove-ignored (find-music-files all) ignores)))
